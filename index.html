@@ -35,6 +35,21 @@
   .sync-indicator.conectado { color: #1a7f4b; }
   .sync-indicator.error     { color: #c0392b; }
 
+  .warning-banner {
+    max-width: 640px;
+    margin: 0 auto 16px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #c0392b;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    background: #fdecea;
+    border: 1px solid #f3b8b2;
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+
   /* Grilla completa: 4 columnas — col1=espacios extra, col2-4=grilla principal */
   .parking-table {
     max-width: 640px;
@@ -141,6 +156,8 @@
 </div>
 
 <p class="sync-indicator" id="sync-status">⏳ Conectando...</p>
+
+<p class="warning-banner">⚠️ Atención: el registro no es una reserva previa.</p>
 
 <!--
   Layout visual (fiel al dibujo):
