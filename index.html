@@ -15,69 +15,62 @@
   }
   h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
   .header {
-    max-width: 560px;
+    max-width: 640px;
     margin: 0 auto 20px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
   }
   .fecha { font-size: 13px; color: #888; }
-  .status-bar {
-    max-width: 560px;
-    margin: 0 auto 18px;
-    font-size: 13px;
-    color: #666;
-    text-align: center;
-  }
+  .status-bar { font-size: 13px; color: #666; text-align: right; }
   .status-bar .verde { color: #1a7f4b; font-weight: 600; }
   .status-bar .rojo  { color: #c0392b; font-weight: 600; }
   .sync-indicator {
-    max-width: 560px;
-    margin: 0 auto 12px;
+    max-width: 640px;
+    margin: 0 auto 16px;
     font-size: 12px;
     color: #aaa;
     text-align: center;
   }
   .sync-indicator.conectado { color: #1a7f4b; }
-  .sync-indicator.error { color: #c0392b; }
-  .grid-wrapper {
-    max-width: 560px;
+  .sync-indicator.error     { color: #c0392b; }
+
+  /* Grilla completa: 4 columnas — col1=espacios extra, col2-4=grilla principal */
+  .parking-table {
+    max-width: 640px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .row-block { display: flex; flex-direction: column; gap: 6px; }
-  .row-label {
-    font-size: 11px;
-    color: #aaa;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    text-align: center;
-  }
-  .row-label.destacado {
-    font-size: 15px;
-    font-weight: 700;
-    color: #444;
-    letter-spacing: 0.04em;
-    text-transform: none;
-  }
-  .row-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 10px;
   }
+
+  /* Etiquetas de sección */
+  .section-label {
+    grid-column: 2 / 5;
+    font-size: 13px;
+    font-weight: 700;
+    color: #444;
+    padding: 4px 0 0 4px;
+    letter-spacing: 0.02em;
+  }
+  .section-label.entrada { color: #1a6bb5; }
+  .section-label.fondo   { color: #b5771a; }
+
+  /* Celda vacía para alinear */
+  .empty-cell { visibility: hidden; }
+
+  /* Spots */
   .spot {
     background: #fff;
     border: 1.5px dashed #ccc;
     border-radius: 12px;
-    padding: 14px 10px;
-    min-height: 110px;
+    padding: 12px 8px;
+    min-height: 108px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 4px;
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
     text-align: center;
@@ -88,43 +81,33 @@
     border: 1.5px solid #5cb882;
   }
   .spot.occupied:hover { opacity: 0.85; }
-  .spot.loading { opacity: 0.5; pointer-events: none; }
   .spot-num   { font-size: 10px; color: #bbb; font-weight: 600; letter-spacing: 0.05em; }
-  .spot-icon  { font-size: 28px; color: #ddd; }
-  .spot-free  { font-size: 12px; color: #bbb; }
-  .spot-plate { font-size: 16px; font-weight: 700; color: #1a7f4b; letter-spacing: 0.1em; }
-  .spot-name  { font-size: 13px; color: #444; }
-  .spot-phone { font-size: 12px; color: #888; }
+  .spot-icon  { font-size: 22px; color: #ddd; }
+  .spot-free  { font-size: 11px; color: #bbb; }
+  .spot-plate { font-size: 13px; font-weight: 700; color: #1a7f4b; letter-spacing: 0.08em; }
+  .spot-name  { font-size: 12px; color: #444; }
+  .spot-car   { font-size: 11px; color: #777; font-style: italic; }
+  .spot-phone { font-size: 11px; color: #888; }
+
+  /* Modal */
   .overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45); z-index: 200;
+    align-items: center; justify-content: center;
   }
   .overlay.active { display: flex; }
   .modal {
-    background: #fff;
-    border-radius: 14px;
-    padding: 24px;
-    width: 320px;
-    max-width: 92vw;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    background: #fff; border-radius: 14px; padding: 24px;
+    width: 340px; max-width: 92vw; max-height: 90vh;
+    overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.15);
   }
   .modal h2 { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
   .modal .sub { font-size: 13px; color: #888; margin-bottom: 18px; }
   .field { margin-bottom: 12px; }
   .field label { display: block; font-size: 12px; color: #666; margin-bottom: 4px; font-weight: 500; }
   .field input {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 9px 12px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.15s;
+    width: 100%; border: 1px solid #ddd; border-radius: 8px;
+    padding: 9px 12px; font-size: 14px; outline: none; transition: border-color 0.15s;
   }
   .field input:focus { border-color: #5cb882; }
   .error-msg { font-size: 12px; color: #c0392b; margin-top: 6px; display: none; }
@@ -134,9 +117,10 @@
   .btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .btn-cancel { background: #f0f0ee; color: #555; }
   .btn-ok     { background: #1a7f4b; color: #fff; }
-  .btn-free   { width: 100%; margin-top: 10px; background: #fdecea; color: #c0392b; border: none; border-radius: 8px; padding: 10px; font-size: 14px; font-weight: 500; cursor: pointer; }
-  .btn-close  { width: 100%; margin-top: 8px; background: #f0f0ee; color: #555; border: none; border-radius: 8px; padding: 10px; font-size: 14px; cursor: pointer; }
-  .info-plate { font-size: 26px; font-weight: 700; color: #1a7f4b; letter-spacing: 0.12em; margin: 6px 0; }
+  .btn-free  { width: 100%; margin-top: 10px; background: #fdecea; color: #c0392b; border: none; border-radius: 8px; padding: 10px; font-size: 14px; font-weight: 500; cursor: pointer; }
+  .btn-close { width: 100%; margin-top: 8px; background: #f0f0ee; color: #555; border: none; border-radius: 8px; padding: 10px; font-size: 14px; cursor: pointer; }
+  .info-plate { font-size: 24px; font-weight: 700; color: #1a7f4b; letter-spacing: 0.12em; margin: 4px 0; }
+  .info-car   { font-size: 14px; color: #666; font-style: italic; margin-bottom: 6px; }
   .info-name  { font-size: 15px; color: #333; margin-bottom: 4px; }
   .info-phone { font-size: 14px; color: #666; }
   .info-phone a { color: #1a7f4b; text-decoration: none; }
@@ -150,27 +134,57 @@
     <h1>🅿️ Estacionamiento</h1>
     <p class="fecha" id="fecha"></p>
   </div>
-  <p class="status-bar" style="margin:0;">
+  <div class="status-bar">
     <span class="verde" id="libres">—</span> libres &nbsp;·&nbsp;
     <span class="rojo"  id="ocupados">—</span> ocupados
-  </p>
+  </div>
 </div>
 
 <p class="sync-indicator" id="sync-status">⏳ Conectando...</p>
 
-<div class="grid-wrapper">
-  <div class="row-block">
-    <p class="row-label destacado">← ENTRADA</p>
-    <div class="row-grid" id="row1"></div>
-  </div>
-  <div class="row-block">
-    <p class="row-label">Fila del medio</p>
-    <div class="row-grid" id="row2"></div>
-  </div>
-  <div class="row-block">
-    <p class="row-label destacado">FONDO →</p>
-    <div class="row-grid" id="row3"></div>
-  </div>
+<!--
+  Layout visual (fiel al dibujo):
+  Col:     [extra]  [izq]  [cen]  [der]
+  Fila 1:   14      12      8      4      ← ENTRADA
+  Fila 2:   13      11      7      3
+  Fila 3:   —       10      6      2
+            —    [FONDO]
+  Fila 4:   —        9      5      1
+-->
+<div class="parking-table" id="parking-table">
+
+  <!-- Fila ENTRADA label -->
+  <div class="empty-cell"></div>
+  <div class="section-label entrada" style="grid-column:2/5;">← ENTRADA</div>
+
+  <!-- Fila 1: 14 | 12, 8, 4 -->
+  <div class="spot empty" id="spot-14"></div>
+  <div class="spot empty" id="spot-12"></div>
+  <div class="spot empty" id="spot-8"></div>
+  <div class="spot empty" id="spot-4"></div>
+
+  <!-- Fila 2: 13 | 11, 7, 3 -->
+  <div class="spot empty" id="spot-13"></div>
+  <div class="spot empty" id="spot-11"></div>
+  <div class="spot empty" id="spot-7"></div>
+  <div class="spot empty" id="spot-3"></div>
+
+  <!-- Fila 3: vacío | 10, 6, 2 -->
+  <div class="empty-cell"></div>
+  <div class="spot empty" id="spot-10"></div>
+  <div class="spot empty" id="spot-6"></div>
+  <div class="spot empty" id="spot-2"></div>
+
+  <!-- FONDO label -->
+  <div class="empty-cell"></div>
+  <div class="section-label fondo" style="grid-column:2/5;">FONDO →</div>
+
+  <!-- Fila 4: vacío | 9, 5, 1 -->
+  <div class="empty-cell"></div>
+  <div class="spot empty" id="spot-9"></div>
+  <div class="spot empty" id="spot-5"></div>
+  <div class="spot empty" id="spot-1"></div>
+
 </div>
 
 <!-- Modal: Registrar -->
@@ -179,8 +193,9 @@
     <h2>Registrar auto</h2>
     <p class="sub" id="reg-sub">Espacio #</p>
     <div class="field"><label>Patente</label><input id="f-plate" type="text" placeholder="ej: BCDF12" maxlength="8" /></div>
-    <div class="field"><label>Nombre</label><input id="f-name"  type="text" placeholder="Tu nombre completo" /></div>
+    <div class="field"><label>Nombre</label><input id="f-name" type="text" placeholder="Tu nombre completo" /></div>
     <div class="field"><label>Teléfono</label><input id="f-phone" type="tel" placeholder="+56 9 1234 5678" /></div>
+    <div class="field"><label>Marca y modelo</label><input id="f-car" type="text" placeholder="ej: Toyota Yaris rojo" /></div>
     <p class="error-msg" id="f-error">Completa todos los campos para continuar.</p>
     <div class="btn-row">
       <button class="btn btn-cancel" onclick="closeRegister()">Cancelar</button>
@@ -194,6 +209,7 @@
   <div class="modal">
     <p class="sub" id="info-spot"></p>
     <p class="info-plate" id="info-plate"></p>
+    <p class="info-car"   id="info-car"></p>
     <p class="info-name"  id="info-name"></p>
     <p class="info-phone" id="info-phone"></p>
     <hr class="divider" />
@@ -207,21 +223,19 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-// ── Configuración Firebase ───────────────────────────────────────────────────
-const firebaseConfig = {
+firebase.initializeApp({
   databaseURL: "https://estacionamiento-b6b39-default-rtdb.firebaseio.com"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
+});
+const db    = firebase.database();
 const TODAY = new Date().toISOString().slice(0, 10);
 const REF   = db.ref('parking/' + TODAY);
 
 let spots = {};
 let selectedSpot = null;
 
-// ── Estado de conexión ───────────────────────────────────────────────────────
+const ALL_SPOTS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+
+// ── Conexión ─────────────────────────────────────────────────────────────────
 db.ref('.info/connected').on('value', snap => {
   const el = document.getElementById('sync-status');
   if (snap.val()) {
@@ -233,41 +247,40 @@ db.ref('.info/connected').on('value', snap => {
   }
 });
 
-// ── Escuchar cambios en tiempo real ─────────────────────────────────────────
+// ── Escuchar cambios ─────────────────────────────────────────────────────────
 REF.on('value', snap => {
   spots = snap.val() || {};
   render();
 });
 
 // ── Render ───────────────────────────────────────────────────────────────────
+function renderSpot(n) {
+  const el = document.getElementById('spot-' + n);
+  if (!el) return;
+  const d = spots[n];
+  el.className = 'spot ' + (d ? 'occupied' : 'empty');
+  if (d) {
+    el.innerHTML = `
+      <span class="spot-num">#${n}</span>
+      <span class="spot-plate">${d.plate}</span>
+      <span class="spot-name">${d.name}</span>
+      <span class="spot-car">${d.car}</span>
+      <span class="spot-phone">${d.phone}</span>`;
+    el.onclick = () => openInfo(n);
+  } else {
+    el.innerHTML = `
+      <span class="spot-num">#${n}</span>
+      <span class="spot-icon">🚗</span>
+      <span class="spot-free">Libre</span>`;
+    el.onclick = () => openRegister(n);
+  }
+}
+
 function render() {
   let free = 0, occ = 0;
-  [1, 2, 3].forEach(row => {
-    const el = document.getElementById('row' + row);
-    el.innerHTML = '';
-    [0, 1, 2].forEach(col => {
-      const n = (row - 1) * 3 + col + 1;
-      const d = spots[n];
-      const div = document.createElement('div');
-      div.className = 'spot ' + (d ? 'occupied' : 'empty');
-      if (d) {
-        occ++;
-        div.innerHTML = `
-          <span class="spot-num">#${n}</span>
-          <span class="spot-plate">${d.plate}</span>
-          <span class="spot-name">${d.name}</span>
-          <span class="spot-phone">${d.phone}</span>`;
-        div.onclick = () => openInfo(n);
-      } else {
-        free++;
-        div.innerHTML = `
-          <span class="spot-num">#${n}</span>
-          <span class="spot-icon">🚗</span>
-          <span class="spot-free">Libre — toca para registrar</span>`;
-        div.onclick = () => openRegister(n);
-      }
-      el.appendChild(div);
-    });
+  ALL_SPOTS.forEach(n => {
+    renderSpot(n);
+    spots[n] ? occ++ : free++;
   });
   document.getElementById('libres').textContent   = free;
   document.getElementById('ocupados').textContent = occ;
@@ -277,9 +290,10 @@ function render() {
 function openRegister(n) {
   selectedSpot = n;
   document.getElementById('reg-sub').textContent = 'Espacio #' + n;
-  ['f-plate','f-name','f-phone'].forEach(id => document.getElementById(id).value = '');
+  ['f-plate','f-name','f-phone','f-car'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('f-error').style.display = 'none';
-  document.getElementById('btn-registrar').disabled = false;
+  const btn = document.getElementById('btn-registrar');
+  btn.disabled = false; btn.textContent = '✓ Registrar';
   document.getElementById('ov-register').classList.add('active');
   document.getElementById('f-plate').focus();
 }
@@ -293,18 +307,17 @@ function confirmRegister() {
   const plate = document.getElementById('f-plate').value.trim().toUpperCase();
   const name  = document.getElementById('f-name').value.trim();
   const phone = document.getElementById('f-phone').value.trim();
-  if (!plate || !name || !phone) {
+  const car   = document.getElementById('f-car').value.trim();
+  if (!plate || !name || !phone || !car) {
     document.getElementById('f-error').style.display = 'block';
     return;
   }
   const btn = document.getElementById('btn-registrar');
-  btn.disabled = true;
-  btn.textContent = 'Guardando...';
-  REF.child(selectedSpot).set({ plate, name, phone })
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  REF.child(selectedSpot).set({ plate, name, phone, car })
     .then(() => closeRegister())
     .catch(() => {
-      btn.disabled = false;
-      btn.textContent = '✓ Registrar';
+      btn.disabled = false; btn.textContent = '✓ Registrar';
       document.getElementById('f-error').textContent = 'Error al guardar. Revisa tu conexión.';
       document.getElementById('f-error').style.display = 'block';
     });
@@ -316,6 +329,7 @@ function openInfo(n) {
   const d = spots[n];
   document.getElementById('info-spot').textContent  = 'Espacio #' + n;
   document.getElementById('info-plate').textContent = d.plate;
+  document.getElementById('info-car').textContent   = d.car;
   document.getElementById('info-name').textContent  = d.name;
   document.getElementById('info-phone').innerHTML   =
     `<a href="tel:${d.phone}">${d.phone}</a> — toca para llamar`;
@@ -335,13 +349,10 @@ function releaseSpot() {
   }
 }
 
-// ── Cerrar overlay al hacer clic afuera ─────────────────────────────────────
+// ── Cerrar al clic afuera ────────────────────────────────────────────────────
 ['ov-register','ov-info'].forEach(id => {
   document.getElementById(id).addEventListener('click', function(e) {
-    if (e.target === this) {
-      this.classList.remove('active');
-      selectedSpot = null;
-    }
+    if (e.target === this) { this.classList.remove('active'); selectedSpot = null; }
   });
 });
 
