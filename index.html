@@ -15,7 +15,7 @@
   }
   h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
   .header {
-    max-width: 640px;
+    max-width: 860px;
     margin: 0 auto 20px;
     display: flex;
     justify-content: space-between;
@@ -26,7 +26,7 @@
   .status-bar .verde { color: #1a7f4b; font-weight: 600; }
   .status-bar .rojo  { color: #c0392b; font-weight: 600; }
   .sync-indicator {
-    max-width: 640px;
+    max-width: 860px;
     margin: 0 auto 16px;
     font-size: 12px;
     color: #aaa;
@@ -34,9 +34,8 @@
   }
   .sync-indicator.conectado { color: #1a7f4b; }
   .sync-indicator.error     { color: #c0392b; }
-
   .warning-banner {
-    max-width: 640px;
+    max-width: 860px;
     margin: 0 auto 16px;
     text-align: center;
     font-size: 14px;
@@ -50,31 +49,39 @@
     padding: 10px 14px;
   }
 
-  /* Grilla completa: 4 columnas — col1=espacios extra, col2-4=grilla principal */
+  /*
+    Layout (5 columnas):
+    col1=extra(17,18)  col2=izq(16,15,14,13)  col3(12,11,10,9)  col4(8,7,6,5)  col5(4,3,2,1)
+
+    Visual:
+    [18]   [         ENTRADA                        ]
+    [17]   [16]   [12]   [8]   [4]
+           [15]   [11]   [7]   [3]
+           [14]   [10]   [6]   [2]
+           [         FONDO                          ]
+           [13]   [ 9]   [5]   [1]
+  */
   .parking-table {
-    max-width: 640px;
+    max-width: 860px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
   }
 
-  /* Etiquetas de sección */
   .section-label {
-    grid-column: 2 / 5;
     font-size: 13px;
     font-weight: 700;
-    color: #444;
     padding: 4px 0 0 4px;
     letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
   }
   .section-label.entrada { color: #1a6bb5; }
   .section-label.fondo   { color: #b5771a; }
 
-  /* Celda vacía para alinear */
   .empty-cell { visibility: hidden; }
 
-  /* Spots */
   .spot {
     background: #fff;
     border: 1.5px dashed #ccc;
@@ -91,10 +98,7 @@
     text-align: center;
   }
   .spot.empty:hover { border-color: #999; background: #f9f9f7; }
-  .spot.occupied {
-    background: #edfaf3;
-    border: 1.5px solid #5cb882;
-  }
+  .spot.occupied { background: #edfaf3; border: 1.5px solid #5cb882; }
   .spot.occupied:hover { opacity: 0.85; }
   .spot-num   { font-size: 10px; color: #bbb; font-weight: 600; letter-spacing: 0.05em; }
   .spot-icon  { font-size: 22px; color: #ddd; }
@@ -104,7 +108,6 @@
   .spot-car   { font-size: 11px; color: #777; font-style: italic; }
   .spot-phone { font-size: 11px; color: #888; }
 
-  /* Modal */
   .overlay {
     display: none; position: fixed; inset: 0;
     background: rgba(0,0,0,0.45); z-index: 200;
@@ -156,48 +159,42 @@
 </div>
 
 <p class="sync-indicator" id="sync-status">⏳ Conectando...</p>
-
 <p class="warning-banner">⚠️ Atención: el registro no es una reserva previa.</p>
 
-<!--
-  Layout visual (fiel al dibujo):
-  Col:     [extra]  [izq]  [cen]  [der]
-  Fila 1:   14      12      8      4      ← ENTRADA
-  Fila 2:   13      11      7      3
-  Fila 3:   —       10      6      2
-            —    [FONDO]
-  Fila 4:   —        9      5      1
--->
-<div class="parking-table" id="parking-table">
+<div class="parking-table">
 
-  <!-- Fila ENTRADA label -->
+  <!-- ENTRADA label: col2 a col5 -->
   <div class="empty-cell"></div>
-  <div class="section-label entrada" style="grid-column:2/5;">← ENTRADA</div>
+  <div class="section-label entrada" style="grid-column:2/6;">← ENTRADA</div>
 
-  <!-- Fila 1: 14 | 12, 8, 4 -->
-  <div class="spot empty" id="spot-14"></div>
+  <!-- Fila 1: 18 | 16, 12, 8, 4 -->
+  <div class="spot empty" id="spot-18"></div>
+  <div class="spot empty" id="spot-16"></div>
   <div class="spot empty" id="spot-12"></div>
   <div class="spot empty" id="spot-8"></div>
   <div class="spot empty" id="spot-4"></div>
 
-  <!-- Fila 2: 13 | 11, 7, 3 -->
-  <div class="spot empty" id="spot-13"></div>
+  <!-- Fila 2: 17 | 15, 11, 7, 3 -->
+  <div class="spot empty" id="spot-17"></div>
+  <div class="spot empty" id="spot-15"></div>
   <div class="spot empty" id="spot-11"></div>
   <div class="spot empty" id="spot-7"></div>
   <div class="spot empty" id="spot-3"></div>
 
-  <!-- Fila 3: vacío | 10, 6, 2 -->
+  <!-- Fila 3: vacío | 14, 10, 6, 2 -->
   <div class="empty-cell"></div>
+  <div class="spot empty" id="spot-14"></div>
   <div class="spot empty" id="spot-10"></div>
   <div class="spot empty" id="spot-6"></div>
   <div class="spot empty" id="spot-2"></div>
 
-  <!-- FONDO label -->
+  <!-- FONDO label: col2 a col5 -->
   <div class="empty-cell"></div>
-  <div class="section-label fondo" style="grid-column:2/5;">FONDO →</div>
+  <div class="section-label fondo" style="grid-column:2/6;">FONDO →</div>
 
-  <!-- Fila 4: vacío | 9, 5, 1 -->
+  <!-- Fila 4: vacío | 13, 9, 5, 1 -->
   <div class="empty-cell"></div>
+  <div class="spot empty" id="spot-13"></div>
   <div class="spot empty" id="spot-9"></div>
   <div class="spot empty" id="spot-5"></div>
   <div class="spot empty" id="spot-1"></div>
@@ -249,10 +246,8 @@ const REF   = db.ref('parking/' + TODAY);
 
 let spots = {};
 let selectedSpot = null;
+const ALL_SPOTS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 
-const ALL_SPOTS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14];
-
-// ── Conexión ─────────────────────────────────────────────────────────────────
 db.ref('.info/connected').on('value', snap => {
   const el = document.getElementById('sync-status');
   if (snap.val()) {
@@ -264,13 +259,11 @@ db.ref('.info/connected').on('value', snap => {
   }
 });
 
-// ── Escuchar cambios ─────────────────────────────────────────────────────────
 REF.on('value', snap => {
   spots = snap.val() || {};
   render();
 });
 
-// ── Render ───────────────────────────────────────────────────────────────────
 function renderSpot(n) {
   const el = document.getElementById('spot-' + n);
   if (!el) return;
@@ -303,7 +296,6 @@ function render() {
   document.getElementById('ocupados').textContent = occ;
 }
 
-// ── Modal Registrar ──────────────────────────────────────────────────────────
 function openRegister(n) {
   selectedSpot = n;
   document.getElementById('reg-sub').textContent = 'Espacio #' + n;
@@ -340,7 +332,6 @@ function confirmRegister() {
     });
 }
 
-// ── Modal Info ───────────────────────────────────────────────────────────────
 function openInfo(n) {
   selectedSpot = n;
   const d = spots[n];
@@ -366,14 +357,12 @@ function releaseSpot() {
   }
 }
 
-// ── Cerrar al clic afuera ────────────────────────────────────────────────────
 ['ov-register','ov-info'].forEach(id => {
   document.getElementById(id).addEventListener('click', function(e) {
     if (e.target === this) { this.classList.remove('active'); selectedSpot = null; }
   });
 });
 
-// ── Fecha ────────────────────────────────────────────────────────────────────
 document.getElementById('fecha').textContent =
   new Date().toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 </script>
